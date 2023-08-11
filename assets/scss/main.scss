@@ -8,6 +8,19 @@ $color: #333;
 $height: 400px;
 $width: 400px;
 
+$title__height: 50px;
+
+$bar__bg: #6ECE3B;
+
+$input__container__height: 80px;
+$input__container__width: 100px;
+
+$icon__height: 33px;
+$icon__widht: 36px;
+
+$upload__file__button__height: 40px;
+$upload__file__button__width: 140px;
+
 * {
   margin: 0;
   padding: 0;
@@ -46,22 +59,39 @@ img {
 }
 
 .card {
+  position: relative;
   height: 260px;
   width: 300px;
-  top: 70px;
-  left: 50px;
   background: #fff;
   box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 
+  .bar {
+    position: absolute;
+    top: $title__height;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: $bar__bg;
+    z-index: 1;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 3s ease-out;
+    
+    &.active {
+      transform: scaleX(1) translate3d(0, 0, 0);
+    }
+  }
+
   h1 {
-    height: 50px;
-    line-height: 50px;
+    height: $title__height;
+    line-height: $title__height;
     color: #676767;
     font-size: 16px;
     font-weight: 500;
     text-align: center;
     border-bottom: 1px solid #d8d8d8;
+    user-select: none;
   }
 
   .card__inner {
@@ -69,7 +99,7 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100% - 50px);
+    height: calc(100% - #{$title__height});
     gap: 30px;
   }
 
@@ -79,12 +109,22 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80px;
-    width: 100px;
+    height: $input__container__height;
+    width: $input__container__width;
     border: 1px dashed lightgray;
     border-radius: 3px;
     user-select: none;
     overflow: hidden;
+  }
+
+  .input__container .filename {
+    width: 100%;
+    color: #676767;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    word-wrap: break-word;
+    display: none;
   }
 
   .input__container input[type="file"] {
@@ -95,12 +135,76 @@ img {
     cursor: pointer;
   }
 
-  button {
-    color: #fff;
+  .syncing__icon, .done__icon {
+    display: none;
+    height: $icon__height;
+    width: $icon__widht;
+    margin: calc((#{$input__container__height} - #{$icon__height}) / 2) 0;
+  }
+
+  .upload__file__button {
+    height: $upload__file__button__height;
+    width: $upload__file__button__width;
+    color: #FFF;
     background-color: #6ece3b;
     border: 1px solid transparent;
     border-radius: 3px;
-    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 0 0 #498C25;
+    outline: none;
+    user-select: none;
     cursor: pointer;
+  }
+}
+
+.card__container.syncing {
+  .input__container {
+    display: none;
+  }
+
+  .syncing__icon {
+    display: block;
+    animation: rotate 3.2s ease-in-out;
+  }
+}
+
+.card__container.done {
+  .input__container {
+    display: none;
+  }
+  
+  .done__icon {
+    display: block;
+    animation: fade_in .5s ease-in-out;
+  }
+}
+
+// * ANIMATIONS
+
+@keyframes rotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+  
+  100% {
+    transform: rotateZ(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fade_in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

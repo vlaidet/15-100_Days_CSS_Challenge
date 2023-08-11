@@ -10,16 +10,24 @@
     <div id="challenge-15" class="frame">
       <div class="card__container">
         <div class="card">
+          <div class="bar"></div>
           <h1>Drop file to upload</h1>
           <div class="card__inner">
+
             <div class="input__container">
-              <img src="https://100dayscss.com/codepen/upload.svg" class="upload">
+              <img src="https://100dayscss.com/codepen/upload.svg" class="upload__icon">
+              <span class="filename"></span>
               <input type="file">
             </div>
-            <button>Upload file</button>
+
+            <img src="https://100dayscss.com/codepen/syncing.svg" alt="syncing" class="icon syncing__icon">
+            <img src="https://100dayscss.com/codepen/checkmark.svg" alt="done" class="icon done__icon">
+            
+            <button class="upload__file__button">Upload file</button>
           </div>
         </div>
       </div>
     </div>
+    <script src="./assets/js/main.js"></script>
   </body>
 </html>
